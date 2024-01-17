@@ -121,15 +121,15 @@ def setup():
   pygame.display.set_caption('OpenGL AR demo')
 
 # カメラデータを読み込む
-with open('ar_camera.pkl','r') as f:
+with open('ar_camera.pkl','rb') as f:
   K = pickle.load(f)
   Rt = pickle.load(f)
 
 setup()
-draw_background('book_perspective.bmp')
+draw_background('../data/book_perspective.bmp')
 set_projection_from_camera(K)
 set_modelview_from_camera(Rt)
-load_and_draw_model('toyplane.obj')
+load_and_draw_model('../data/toyplane.obj')
 
 while True:
   event = pygame.event.poll()
