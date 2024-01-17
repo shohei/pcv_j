@@ -7,5 +7,5 @@ tmp = camera.rotation_matrix([0,0,1])[:3,:3]
 Rt = hstack((tmp,array([[50],[40],[30]])))
 cam = camera.Camera(dot(K,Rt))
 
-print K,Rt
-print cam.factor()
+print(K,Rt)
+print(cam.factor())
