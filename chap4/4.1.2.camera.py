@@ -5,7 +5,7 @@ from pylab import *
 import camera
 
 # 点群を読み込む
-points = loadtxt('house.p3d').T
+points = loadtxt('../data/house.p3d').T
 points = vstack((points,ones(points.shape[1])))
 
 # カメラを設定する
