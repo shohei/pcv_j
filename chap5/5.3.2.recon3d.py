@@ -12,12 +12,12 @@ import sift
 K = array([[2394,0,932],[0,2398,628],[0,0,1]])
 
 # 画像を読み込み特徴量を計算する
-im1 = array(Image.open('alcatraz1.jpg'))
-sift.process_image('alcatraz1.jpg','im1.sift')
+im1 = array(Image.open('../data/alcatraz1.jpg'))
+sift.process_image('../data/alcatraz1.jpg','im1.sift')
 l1,d1 = sift.read_features_from_file('im1.sift')
 
-im2 = array(Image.open('alcatraz2.jpg'))
-sift.process_image('alcatraz2.jpg','im2.sift')
+im2 = array(Image.open('../data/alcatraz2.jpg'))
+sift.process_image('../data/alcatraz2.jpg','im2.sift')
 l2,d2 = sift.read_features_from_file('im2.sift')
 
 # 特徴量を対応づける

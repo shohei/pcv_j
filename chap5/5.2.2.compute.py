@@ -3,7 +3,7 @@
 
 from pylab import *
 
-execfile('load_vggdata.py')
+exec(compile(open('load_vggdata.py', "rb").read(), 'load_vggdata.py', 'exec'))
 
 import sfm, camera
 
@@ -21,8 +21,8 @@ X = vstack( (X,ones(X.shape[1])) )
 Pest = camera.Camera(sfm.compute_P(x,X))
 
 # 比較する！
-print Pest.P / Pest.P[2,3]
-print P[0].P / P[0].P[2,3]
+print(Pest.P / Pest.P[2,3])
+print(P[0].P / P[0].P[2,3])
 
 xest = Pest.project(X)
 

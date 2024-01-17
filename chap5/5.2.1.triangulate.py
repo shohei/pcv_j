@@ -3,7 +3,7 @@
 
 from pylab import *
 
-execfile('load_vggdata.py')
+exec(compile(open('load_vggdata.py', "rb").read(), 'load_vggdata.py', 'exec'))
 
 import sfm
 
@@ -21,13 +21,13 @@ Xtrue = vstack( (Xtrue,ones(Xtrue.shape[1])) )
 
 # 最初の3点を調べる
 Xest = sfm.triangulate(x1,x2,P[0].P,P[1].P)
-print Xest[:,:3]
-print Xtrue[:,:3]
+print(Xest[:,:3])
+print(Xtrue[:,:3])
 
 # 描画する
 from mpl_toolkits.mplot3d import axes3d
 fig = figure()
-ax = fig.gca(projection='3d')
+ax = fig.add_subplot(projection='3d')
 ax.plot(Xest[0],Xest[1],Xest[2],'ko')
 ax.plot(Xtrue[0],Xtrue[1],Xtrue[2],'r.')
 axis('equal')

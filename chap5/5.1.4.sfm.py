@@ -3,7 +3,7 @@
 
 from pylab import *
 
-execfile('load_vggdata.py')
+exec(compile(open('load_vggdata.py', "rb").read(), 'load_vggdata.py', 'exec'))
 
 import sfm
 

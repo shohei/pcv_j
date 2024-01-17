@@ -4,7 +4,7 @@
 from PIL import Image
 from pylab import *
 
-execfile('load_vggdata.py')
+exec(open("./load_vggdata.py").read())
 
 # 3D点を同次座標にして射影する
 X = vstack( (points3D,ones(points3D.shape[1])) ) 

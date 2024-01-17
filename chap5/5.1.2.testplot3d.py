@@ -5,7 +5,7 @@ from pylab import *
 from mpl_toolkits.mplot3d import axes3d
 
 fig = figure()
-ax = fig.gca(projection="3d")
+ax = fig.add_subplot(projection="3d")
 
 # 3Dのサンプルデータを生成する
 X,Y,Z = axes3d.get_test_data(0.25)
