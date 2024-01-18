@@ -60,7 +60,7 @@ X = X[:,infront]
 from mpl_toolkits.mplot3d import axes3d
 
 fig = figure()
-ax = fig.gca(projection='3d')
+ax = fig.add_subplot(projection='3d')
 ax.plot(-X[0],X[1],X[2],'k.')
 axis('off')
 

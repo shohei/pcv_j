@@ -5,6 +5,7 @@ from PIL import Image
 from numpy import *
 from pylab import *
 import stereo
+import imageio
 
 # tsukuba
 im_l = array(Image.open('scene1.row3.col3.ppm').convert('L'),'f')
@@ -24,13 +25,11 @@ steps = 12   # for tsukuba
 wid = 9
 
 res = stereo.plane_sweep_ncc(im_l,im_r,start,steps,wid)
-
-import scipy.misc
-scipy.misc.imsave('depth.png',res)
+imageio.imwrite('depth.png', res)
 
 wid = 3
 res2 = stereo.plane_sweep_gauss(im_l,im_r,start,steps,wid)
-scipy.misc.imsave('depthg.png',res2)
+imageio.imwrite('depthg.png', res2)
 
 figure()
 gray()

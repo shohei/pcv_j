@@ -79,6 +79,7 @@ return bestfit
     besterr = numpy.inf
     best_inlier_idxs = None
     while iterations < k:
+        print(iterations,k)
         maybe_idxs, test_idxs = random_partition(n,data.shape[0])
         maybeinliers = data[maybe_idxs,:]
         test_points = data[test_idxs]
