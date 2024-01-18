@@ -5,6 +5,8 @@ from PIL import Image
 from pylab import *
 import homography
 import camera
+# import cv2
+# import numpy as np
 import sift
 
 def my_calibration(sz):
@@ -16,10 +18,39 @@ def my_calibration(sz):
   K[1,2] = 0.5*row
   return K
 
-# 特徴量を計算する
-l0,d0 = sift.process_image('../data/book_frontal.JPG','im0.sift')
+# def process_image(image_name, output_name):
+#     # 画像を読み込み、グレースケールに変換
+#     image = cv2.imread(image_name)
+#     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-l1,d1 = sift.process_image('../data/book_perspective.JPG','im1.sift')
+#     # SIFT機能を初期化
+#     sift = cv2.SIFT_create()
+
+#     # 特徴点と記述子を検出
+#     keypoints, descriptors = sift.detectAndCompute(gray, None)
+
+#     # 特徴点をファイルに保存
+#     with open(output_name, 'wb') as f:
+#         np.save(f, descriptors)
+
+#     return keypoints, descriptors
+
+# def match_twosided(desc1, desc2):
+#     # BFMatcherを使用して記述子間のマッチングを行う
+#     bf = cv2.BFMatcher(cv2.NORM_L2)
+#     matches = bf.knnMatch(desc1, desc2, k=2)
+
+#     # Lowe's ratio testを適用して良いマッチングを選択
+#     good_matches = []
+#     for m, n in matches:
+#         if m.distance < 0.75 * n.distance:
+#             good_matches.append(m)
+
+#     return good_matches
+
+# 特徴量を計算する
+l0, d0 = sift.process_image('../data/book_frontal.JPG','im0.sift')
+l1, d1 = sift.process_image('../data/book_perspective.JPG','im1.sift')
 
 # 特徴量を対応づけホモグラフィーを推定する
 matches = sift.match_twosided(d0,d1)
@@ -108,6 +139,8 @@ plot(box_cam2[0,:],box_cam2[1,:],linewidth=3)
 show()
 
 import pickle
+print(K)
+print(f)
 
 with open('ar_camera.pkl','wb') as f:
   pickle.dump(K,f)
