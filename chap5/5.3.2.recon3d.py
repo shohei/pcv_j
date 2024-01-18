@@ -13,20 +13,18 @@ K = array([[2394,0,932],[0,2398,628],[0,0,1]])
 
 # 画像を読み込み特徴量を計算する
 im1 = array(Image.open('../data/alcatraz1.jpg'))
-sift.process_image('../data/alcatraz1.jpg','im1.sift')
-l1,d1 = sift.read_features_from_file('im1.sift')
+l1, d1 = sift.process_image('../data/alcatraz1.jpg','im1.sift')
 
 im2 = array(Image.open('../data/alcatraz2.jpg'))
-sift.process_image('../data/alcatraz2.jpg','im2.sift')
-l2,d2 = sift.read_features_from_file('im2.sift')
+l2, d2 = sift.process_image('../data/alcatraz2.jpg','im2.sift')
 
 # 特徴量を対応づける
 matches = sift.match_twosided(d1,d2)
-ndx = matches.nonzero()[0]
+ndx = [m.queryIdx for m in matches]
 
 # 同次座標にしinv(K)を使って正規化する
 x1 = homography.make_homog(l1[ndx,:2].T)
-ndx2 = [int(matches[i]) for i in ndx]
+ndx2 = [m.trainIdx for m in matches]
 x2 = homography.make_homog(l2[ndx2,:2].T)
 
 x1n = dot(inv(K),x1)

@@ -5,25 +5,26 @@ from PIL import Image
 from numpy import *
 from pylab import *
 import os
+import cv2
+import numpy as np
 
-def process_image(imagename,resultname,params="--edge-thresh 10 --peak-thresh 5"):
-  """ 画像を処理してファイルに結果を保存する """
+def process_image(image_name, output_name):
+    # 画像を読み込み、グレースケールに変換
+    image = cv2.imread(image_name)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-  if imagename[-3:] != 'pgm': 
-    # pgmファイルを作成する
-    im = Image.open(imagename).convert('L')
-    im.save('tmp.pgm')
-    imagename = 'tmp.pgm'
+    # SIFT機能を初期化
+    sift = cv2.SIFT_create()
 
-  cmmd = str("sift "+imagename+" --output="+resultname+ " "+params)
-  os.system(cmmd)
-  print('processed', imagename, 'to', resultname)
+    # 特徴点と記述子を検出
+    keypoints, descriptors = sift.detectAndCompute(gray, None)
+    keypoints = np.array([l.pt for l in keypoints])
 
-def read_features_from_file(filename):
-  """ 特徴量を読み込んで行列形式で返す """
+    # 特徴点をファイルに保存
+    with open(output_name, 'wb') as f:
+        np.save(f, descriptors)
 
-  f = loadtxt(filename)
-  return f[:,:4],f[:,4:] # 特徴点の配置と記述子
+    return keypoints, descriptors
 
 def write_features_to_file(filename,locs,desc):
   """ 特徴点の配置と記述子をファイルに保存する """
@@ -74,18 +75,17 @@ def match(desc1,desc2):
 
 def match_twosided(desc1,desc2): 
   """ 双方向対称バージョンのmatch() """
+  # BFMatcherを使用して記述子間のマッチングを行う
+  bf = cv2.BFMatcher(cv2.NORM_L2)
+  matches = bf.knnMatch(desc1, desc2, k=2)
 
-  matches_12 = match(desc1,desc2)
-  matches_21 = match(desc2,desc1)
+  # Lowe's ratio testを適用して良いマッチングを選択
+  good_matches = []
+  for m, n in matches:
+      if m.distance < 0.75 * n.distance:
+          good_matches.append(m)
 
-  ndx_12 = matches_12.nonzero()[0]
-
-  # 対称でないものは除去する
-  for n in ndx_12:
-    if matches_21[int(matches_12[n])] != n:
-      matches_12[n] = 0
-
-  return matches_12
+  return good_matches
 
 def appendimages(im1,im2):
   """ 2つの画像を左右に並べた画像を返す """
