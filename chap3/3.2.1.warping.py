@@ -6,8 +6,8 @@ from pylab import *
 import warp
 
 # im1からim2へアフィン変換で変形する例
-im1 = array(Image.open('cat.jpg').convert('L'))
-im2 = array(Image.open('billboard_for_rent.jpg').convert('L'))
+im1 = array(Image.open('../data/cat.jpg').convert('L'))
+im2 = array(Image.open('../data/billboard_for_rent.jpg').convert('L'))
 
 # 点を設定する
 tp = array([[264,538,540,264],[40,36,605,605],[1,1,1,1]])

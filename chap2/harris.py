@@ -3,6 +3,7 @@
 
 from pylab import *
 from scipy.ndimage import filters
+from tqdm import tqdm
 
 def compute_harris_response(im,sigma=3):
    """ グレースケール画像の各ピクセルについて
@@ -83,8 +84,8 @@ def match(desc1,desc2,threshold=0.5):
 
   # 対応点ごとの距離
   d = -ones((len(desc1),len(desc2)))
-  for i in range(len(desc1)):
-    for j in range(len(desc2)):
+  for i in tqdm(range(len(desc1))):
+    for j in tqdm(range(len(desc2)), leave=False):
       d1 = (desc1[i] - mean(desc1[i])) / std(desc1[i])
       d2 = (desc2[j] - mean(desc2[j])) / std(desc2[j])
       ncc_value = sum(d1 * d2) / (n-1)

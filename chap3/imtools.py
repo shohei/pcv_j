@@ -8,7 +8,8 @@ from pylab import *
 
 def get_imlist(path):
   """ pathに指定されたフォルダのすべてのjpgファイル名のリストを返す """
-  return [os.path.join(path,f) for f in os.listdir(path) if f.endswith('.jpg')]
+  l = [os.path.join(path,f) for f in os.listdir(path) if f.endswith('.jpg')]
+  return l 
 
 def imresize(im,sz): 
   """ Resize an image array using PIL. """
@@ -37,7 +38,7 @@ def compute_average(imlist):
     try:
       averageim += array(Image.open(imname))
     except:
-      print imname + '...skipped'
+      print(imname + '...skipped')
   averageim /= len(imlist)
 
   # 平均を uint8 に変換する

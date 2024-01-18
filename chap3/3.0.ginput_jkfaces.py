@@ -14,9 +14,9 @@ with open(dir + '/jkfaces.xml', 'w') as f:
   for imfile in imlist:
     im = array(Image.open(imfile))
     imshow(im)
-    print 'click left, right, mouth'
+    print('click left, right, mouth')
     x = ginput(3,timeout=0)
-    print x
+    print(x)
     f.write('<face file="' + os.path.basename(imfile) + '" ')
     f.write('xf="' + str(int(x[0][0])) + '" ')
     f.write('xm="' + str(int(x[2][0])) + '" ')

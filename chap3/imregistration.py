@@ -57,7 +57,8 @@ def compute_rigid_transform(refpoints,points):
   return R,tx,ty
 
 from scipy import ndimage
-from scipy.misc import imsave
+# from scipy.misc import imsave
+import imageio
 import os
 
 def rigid_alignment(faces,path,plotflag=False):
@@ -66,7 +67,7 @@ def rigid_alignment(faces,path,plotflag=False):
       plotflag=Trueなら、画像を表示する """
 
   # 最初の画像の点を参照点とする
-  refpoints = faces.values()[0]
+  refpoints = list(faces.values())[0]
 
   # 各画像を相似変換で変形する
   for face in faces:
@@ -88,6 +89,8 @@ def rigid_alignment(faces,path,plotflag=False):
 
     # 境界で切り抜き、位置合わせした画像を保存する
     h,w = im2.shape[:2]
-    border = (w+h)/20
-    imsave(os.path.join(path, 'aligned/'+face),
+    border = int((w+h)/20)
+    # imsave(os.path.join(path, 'aligned/'+face),
+    #       im2[border:h-border,border:w-border,:])
+    imageio.imwrite(os.path.join(path, 'aligned/'+face),
           im2[border:h-border,border:w-border,:])

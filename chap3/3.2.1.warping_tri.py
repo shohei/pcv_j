@@ -8,8 +8,8 @@ import homography
 from scipy import ndimage
 
 # im1からim2へアフィン変換で変形する例
-im1 = array(Image.open('cat.jpg').convert('L'))
-im2 = array(Image.open('blank_billboard.jpg').convert('L'))
+im1 = array(Image.open('../data/cat.jpg').convert('L'))
+im2 = array(Image.open('../data/blank_billboard.jpg').convert('L'))
 
 # 点を設定する
 tp = array([[143,353,302,50],[100,30,980,922],[1,1,1,1]])

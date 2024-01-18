@@ -7,8 +7,8 @@ import homography
 import warp
 
 # 変形する画像を開く
-fromim = array(Image.open('sunset_tree.jpg')) 
-x,y = meshgrid(range(5),range(6)) 
+fromim = array(Image.open('../data/sunset_tree.jpg')) 
+x,y = meshgrid(list(range(5)),list(range(6))) 
 x = (fromim.shape[1]/4) * x.flatten() 
 y = (fromim.shape[0]/5) * y.flatten() 
 
@@ -16,7 +16,7 @@ y = (fromim.shape[0]/5) * y.flatten()
 tri = warp.triangulate_points(x, y)
 
 # 対象の画像と点を開く
-im = array(Image.open('turningtorso1.jpg')) 
+im = array(Image.open('../data/turningtorso1.jpg')) 
 tp = loadtxt('turningtorso1_points.txt') # 対応点
 
 # 点を同次座標に変換する

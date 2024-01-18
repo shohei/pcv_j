@@ -2,7 +2,7 @@
 from PIL import Image
 from pylab import *
 
-im = array(Image.open('turningtorso1.jpg').convert('L'))
+im = array(Image.open('../data/turningtorso1.jpg').convert('L'))
 
 figure()
 imshow(im)

@@ -3,10 +3,12 @@
 
 from pylab import *
 from numpy import random
-import matplotlib.delaunay as md
+# import matplotlib.delaunay as md
+from scipy.spatial import Delaunay
 
 x,y = array(random.standard_normal((2,100)))
-centers,edges,tri,neighbors = md.delaunay(x,y)
+# centers,edges,tri,neighbors = md.delaunay(x,y)
+tri = Delaunay(np.c_[x,y]).simplices
 
 figure()
 for t in tri:

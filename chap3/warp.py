@@ -34,11 +34,14 @@ def alpha_for_triangle(points,m,n):
         alpha[i,j] = 1
   return alpha
 
-import matplotlib.delaunay as md
+# import matplotlib.delaunay as md
+from scipy.spatial import Delaunay
 
 def triangulate_points(x,y): 
   """ 2Dの点のドロネー三角形分割 """
-  centers,edges,tri,neighbors = md.delaunay(x,y)
+  # centers,edges,tri,neighbors = md.delaunay(x,y)
+  tri = Delaunay(np.c_[x,y]).simplices
+
   return tri
 
 def pw_affine(fromim,toim,fp,tp,tri):
@@ -99,7 +102,7 @@ def panorama(H,fromim,toim,padding=2400,delta=2400):
     return (p2[0]/p2[2],p2[1]/p2[2])
 
   if H[1,2]<0: # fromim が右側なら
-    print 'warp - right'
+    print('warp - right')
     # fromimを変形
     if is_color:
       # 出力画像の右側に0の領域を追加する
@@ -114,7 +117,7 @@ def panorama(H,fromim,toim,padding=2400,delta=2400):
       fromim_t = ndimage.geometric_transform(fromim,transf,
                     (toim.shape[0],toim.shape[1]+padding))
   else:
-    print 'warp - left'
+    print('warp - left')
     # 左側に領域を追加するために水平移動する
     H_delta = array([[1,0,0],[0,1,-delta],[0,0,1]])
     H = dot(H,H_delta)
