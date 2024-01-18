@@ -10,7 +10,7 @@ im = array(Image.open('houses.png').convert('L'))
 im = 1*(im<128) 
 
 labels, nbr_objects = measurements.label(im) 
-print "Number of objects:", nbr_objects
+print("Number of objects:", nbr_objects)
 
 from pylab import *
 

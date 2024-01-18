@@ -8,4 +8,4 @@ data['x'] = x
 scipy.io.savemat('test.mat',data)
 
 data = scipy.io.loadmat('test.mat')
-print data
+print(data)

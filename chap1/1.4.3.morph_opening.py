@@ -13,7 +13,7 @@ im = 1*(im<128)
 im_open = morphology.binary_opening(im,ones((9,5)),iterations=2) 
 
 labels_open, nbr_objects_open = measurements.label(im_open) 
-print "Number of objects:", nbr_objects_open
+print("Number of objects:", nbr_objects_open)
 
 from pylab import *
 

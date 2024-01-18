@@ -37,7 +37,7 @@ def compute_average(imlist):
     try:
       averageim += array(Image.open(imname))
     except:
-      print imname + '...skipped'
+      print(imname + '...skipped')
   averageim /= len(imlist)
 
   # 平均を uint8 に変換する

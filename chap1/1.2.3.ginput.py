@@ -6,7 +6,7 @@ from pylab import *
 
 im = array(Image.open('empire.jpg'))
 imshow(im)
-print '3点クリックしてください'
+print('3点クリックしてください')
 x = ginput(3)
-print 'クリックした座標:',x
+print('クリックした座標:',x)
 show()

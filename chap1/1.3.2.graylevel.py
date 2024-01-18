@@ -19,6 +19,6 @@ for i in (im,im2,im3,im4):
   gray()
   axis('off')
   imshow(i)
-  print int(i.min()), int(i.max())
+  print(int(i.min()), int(i.max()))
 
 show()
