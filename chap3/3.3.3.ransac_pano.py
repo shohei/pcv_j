@@ -7,8 +7,8 @@ from pylab import *
 import sift
 import warp
 
-featname = ['Univ'+str(i+1)+'.sift' for i in range(5)]
-imname = ['Univ'+str(i+1)+'.jpg' for i in range(5)]
+featname = ['../data/Univ'+str(i+1)+'.sift' for i in range(5)]
+imname = ['../data/Univ'+str(i+1)+'.jpg' for i in range(5)]
 l = {}
 d = {}
 for i in range(5):

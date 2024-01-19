@@ -3,13 +3,12 @@
 
 import sift
 
-featname = ['Univ'+str(i+1)+'.sift' for i in range(5)]
-imname = ['Univ'+str(i+1)+'.jpg' for i in range(5)]
+featname = ['../data/Univ'+str(i+1)+'.sift' for i in range(5)]
+imname = ['../data/Univ'+str(i+1)+'.jpg' for i in range(5)]
 l = {}
 d = {}
 for i in range(5):
-  sift.process_image(imname[i],featname[i])
-  l[i],d[i] = sift.read_features_from_file(featname[i])
+  l[i], d[i] = sift.process_image(imname[i],featname[i])
 
 matches = {}
 for i in range(4):

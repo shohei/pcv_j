@@ -4,25 +4,30 @@
 from PIL import Image
 from numpy import *
 from pylab import *
-import os
+import cv2
 
-def process_image(imagename,resultname,params="--edge-thresh 10 --peak-thresh 5"):
-  """ 画像を処理してファイルに結果を保存する """
+def process_image(image_name, output_name):
+    # 画像を読み込み、グレースケールに変換
+    image = cv2.imread(image_name)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-  if imagename[-3:] != 'pgm': 
-    # pgmファイルを作成する
-    im = Image.open(imagename).convert('L')
-    im.save('tmp.pgm')
-    imagename = 'tmp.pgm'
+    # SIFT機能を初期化
+    sift = cv2.SIFT_create()
 
-  cmmd = str("sift "+imagename+" --output="+resultname+ " "+params)
-  os.system(cmmd)
-  print('processed', imagename, 'to', resultname)
+    # 特徴点と記述子を検出
+    keypoints, descriptors = sift.detectAndCompute(gray, None)
+    keypoints = np.array([l.pt for l in keypoints])
+
+    # 特徴点をファイルに保存
+    with open(output_name, 'wb') as f:
+        np.save(f, descriptors)
+
+    return keypoints, descriptors
 
 def read_features_from_file(filename):
   """ 特徴量を読み込んで行列形式で返す """
 
-  f = loadtxt(filename)
+  f = load(filename)
   return f[:,:4],f[:,4:] # 特徴点の配置と記述子
 
 def write_features_to_file(filename,locs,desc):
