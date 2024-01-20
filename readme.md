@@ -1,3 +1,7 @@
+- Downloaded from here: https://www.oreilly.co.jp/pub/9784873116075/index.html
+
+
+
 実践コンピュータビジョン サンプルプログラム
 ===========================================
 
